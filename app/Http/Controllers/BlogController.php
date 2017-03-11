@@ -17,7 +17,7 @@ class BlogController extends Controller
     {
         $blog = Blog::get();
         
-        return view('blog', ['blog'=>$blog]);
+        return view('admins.blog', ['blog'=>$blog]);
     }
 
     /**
@@ -27,7 +27,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('blog_create');
+        return view('admins.blog_create');
     }
 
     /**

@@ -35,7 +35,7 @@
                     <div class="form-group">
                       <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
                       <div class="col-sm-10">
-                        <textarea name="content" class="form-control my-editor">{!! old('content', $content) !!}</textarea>
+                        <textarea name="content" class="form-control my-editor"></textarea>
                       </div>
                     </div>
                     <div class="form-group">
@@ -44,9 +44,11 @@
                         <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
 					      <i class="fa fa-picture-o"></i> Choose
 					    </a>
+					    <input id="thumbnail" class="form-control" type="text" name="filepath">
+					    <img id="holder" style="margin-top:15px;max-height:100px;">
                       </div>
                     </div>
-                    
+
                     <div class="form-group">
                       <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
@@ -77,10 +79,15 @@
 
 @section('javascripts')
 
+<script src="{{ url('public/vendor/laravel-filemanager/js/lfm.js') }}"></script>
+<script type="text/javascript">
+	var domain = "{{ url('filemanager') }}";
+	$('#lfm').filemanager('image', {prefix: domain});
+</script>
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <script>
   var editor_config = {
-    path_absolute : "/",
+    path_absolute : "{{ url('') }}",
     selector: "textarea.my-editor",
     plugins: [
       "advlist autolink lists link image charmap print preview hr anchor pagebreak",
@@ -94,7 +101,7 @@
       var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
       var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
 
-      var cmsURL = editor_config.path_absolute + 'laravel-filemanager?field_name=' + field_name;
+      var cmsURL = editor_config.path_absolute + '/filemanager?field_name=' + field_name;
       if (type == 'image') {
         cmsURL = cmsURL + "&type=Images";
       } else {
